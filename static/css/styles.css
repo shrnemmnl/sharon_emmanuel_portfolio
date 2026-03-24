@@ -1,0 +1,70 @@
+/* Smooth defaults */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+    body {
+        cursor: none;
+    }
+    
+    a, button, input, select, textarea {
+        cursor: none;
+    }
+}
+
+/* Custom Cursor Styles */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #111;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(17, 17, 17, 0.5);
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover state for custom cursor */
+.cursor-hover {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(17, 17, 17, 0.05);
+    border-color: transparent;
+}
+
+/* For dark section cursor inversion */
+.dark-section .cursor-dot {
+    background-color: #fff;
+}
+.dark-section .cursor-outline {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.dark-section .cursor-hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Typography refinements */
+.prose p {
+    margin-bottom: 1em;
+}
+
+/* Clean text selection */
+::selection {
+    background: #111;
+    color: #fff;
+}

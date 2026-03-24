@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="hero" class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto w-full pt-20">
+        <h1 class="text-6xl md:text-8xl lg:text-9xl font-serif tracking-tight leading-[1.1] mb-6 js-hero-text opacity-0 translate-y-8">
+            {{ profile.name }}
+        </h1>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mt-12 md:mt-24">
+            <h2 class="text-xl md:text-2xl font-light text-secondary max-w-xl leading-relaxed js-hero-fade opacity-0 tracking-wide uppercase">
+                {{ profile.tagline }}
+            </h2>
+            <a href="#work" class="group inline-flex items-center space-x-4 border-b border-primary pb-2 text-sm uppercase tracking-widest js-hero-fade opacity-0 hover-text">
+                <span>View Selected Work</span>
+                <span class="transform group-hover:translate-x-2 transition-transform">→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-32 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
+            <div class="md:col-span-4">
+                <h3 class="text-xs font-semibold tracking-widest uppercase text-secondary mb-4 js-fade-up">About Me</h3>
+            </div>
+            <div class="md:col-span-8">
+                <p class="text-2xl md:text-4xl font-light leading-snug js-fade-up">
+                    {{ profile.about }}
+                </p>
+                <div class="mt-16 js-fade-up">
+                    <h4 class="text-xs font-semibold tracking-widest uppercase text-secondary mb-6">Expertise</h4>
+                    <div class="flex flex-wrap gap-3">
+                        {% for skill in skills %}
+                        <span class="px-5 py-2 bg-accent text-primary text-sm rounded-full">{{ skill.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience Section -->
+<section id="experience" class="py-32 px-6 bg-[#FAFAFA]">
+    <div class="max-w-5xl mx-auto">
+        <h3 class="text-xs font-semibold tracking-widest uppercase text-secondary mb-16 js-fade-up">Professional Experience</h3>
+        <div class="space-y-16 mt-12 border-t border-accent pt-16">
+            {% for exp in experiences %}
+            <div class="group grid grid-cols-1 md:grid-cols-12 gap-6 js-fade-up transition-all hover:pl-4">
+                <div class="md:col-span-4 text-secondary text-sm md:text-base mt-1">
+                    {{ exp.duration }}
+                </div>
+                <div class="md:col-span-8">
+                    <h4 class="text-2xl md:text-3xl font-medium mb-2">{{ exp.role }}</h4>
+                    <p class="text-lg text-secondary font-serif italic mb-6">{{ exp.company }}</p>
+                    <div class="text-primary/70 font-light leading-relaxed prose prose-sm max-w-none">
+                        {{ exp.description|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section id="work" class="py-32 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+        <h3 class="text-xs font-semibold tracking-widest uppercase text-secondary mb-16 js-fade-up">Selected Projects</h3>
+        
+        <div class="space-y-32">
+            {% for project in projects %}
+            <div class="js-project group">
+                <a href="{{ project.live_link|default:project.github_link|default:"#" }}" target="_blank" class="block hover-text relative overflow-hidden bg-[#F2F2F2] aspect-video w-full rounded-sm js-fade-up">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                    {% else %}
+                        <div class="w-full h-full flex flex-col justify-center items-center">
+                            <h4 class="text-4xl font-serif text-secondary group-hover:text-primary transition-colors duration-500">{{ project.title }}</h4>
+                            <p class="mt-4 tracking-widest text-xs uppercase text-secondary/60 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">View Live Project</p>
+                        </div>
+                    {% endif %}
+                </a>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mt-8 js-fade-up">
+                    <div class="md:col-span-4">
+                        <h4 class="text-2xl font-medium">{{ project.title }}</h4>
+                    </div>
+                    <div class="md:col-span-8">
+                        <p class="text-lg font-light text-secondary leading-relaxed">{{ project.description|linebreaksbr }}</p>
+                        <div class="mt-6 flex gap-6 text-sm uppercase tracking-widest font-medium">
+                            {% if project.live_link %}
+                            <a href="{{ project.live_link }}" target="_blank" class="border-b border-primary pb-1 hover:text-secondary hover-text">Live Site</a>
+                            {% endif %}
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="border-b border-primary pb-1 hover:text-secondary hover-text">GitHub</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-40 px-6 bg-[#111] text-accent">
+    <div class="max-w-5xl mx-auto text-center js-fade-up">
+        <h2 class="text-5xl md:text-7xl font-serif mb-12">Let's build together.</h2>
+        <a href="mailto:{{ profile.email }}" class="inline-block text-2xl md:text-4xl border-b hover:text-white transition-colors pb-2 hover-text">{{ profile.email }}</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharon Emmanuel - {{ profile.tagline }}</title>
+    <meta name="description" content="{{ profile.about|truncatechars:150 }}">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: '#111111',
+                        secondary: '#444444',
+                        accent: '#E6E6E6',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-[#FAFAFA] text-primary antialiased font-sans selection:bg-black selection:text-white cursor-none">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot md:block hidden"></div>
+    <div class="cursor-outline md:block hidden"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#FAFAFA]/90 backdrop-blur-md transition-all duration-300 border-b border-transparent js-nav">
+        <div class="max-w-7xl mx-auto px-6 py-6 md:py-8 flex justify-between items-center">
+            <a href="#" class="text-xl font-semibold tracking-tight uppercase nav-link hover-text">{{ profile.name|default:"SE" }}</a>
+            <div class="hidden md:flex space-x-12">
+                <a href="#about" class="text-sm font-medium tracking-widest uppercase text-secondary hover:text-primary transition-colors nav-link hover-text">About</a>
+                <a href="#experience" class="text-sm font-medium tracking-widest uppercase text-secondary hover:text-primary transition-colors nav-link hover-text">Experience</a>
+                <a href="#work" class="text-sm font-medium tracking-widest uppercase text-secondary hover:text-primary transition-colors nav-link hover-text">Work</a>
+                <a href="#contact" class="text-sm font-medium tracking-widest uppercase text-secondary hover:text-primary transition-colors nav-link hover-text">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-primary focus:outline-none hover-text js-mobile-menu-btn">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 bg-[#FAFAFA] z-40 hidden flex-col items-center justify-center space-y-8 js-mobile-menu opacity-0">
+        <a href="#about" class="text-2xl font-light uppercase tracking-widest js-mobile-link">About</a>
+        <a href="#experience" class="text-2xl font-light uppercase tracking-widest js-mobile-link">Experience</a>
+        <a href="#work" class="text-2xl font-light uppercase tracking-widest js-mobile-link">Work</a>
+        <a href="#contact" class="text-2xl font-light uppercase tracking-widest js-mobile-link">Contact</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-accent bg-white">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-secondary">
+            <p>&copy; {% now "Y" %} {{ profile.name }}. All rights reserved.</p>
+            <div class="mt-4 md:mt-0 space-x-6 flex">
+                {% if profile.linkedin %}<a href="{{ profile.linkedin }}" target="_blank" class="hover:text-primary transition-colors hover-text">LinkedIn</a>{% endif %}
+                {% if profile.github %}<a href="{{ profile.github }}" target="_blank" class="hover:text-primary transition-colors hover-text">GitHub</a>{% endif %}
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
