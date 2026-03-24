@@ -78,6 +78,7 @@ if (mobileBtn && mobileMenu) {
         isMenuOpen = !isMenuOpen;
         if (isMenuOpen) {
             mobileMenu.classList.remove('hidden');
+            mobileMenu.classList.add('flex');
             document.body.style.overflow = 'hidden';
             gsap.to(mobileMenu, { opacity: 1, duration: 0.3 });
         } else {
@@ -97,6 +98,7 @@ function closeMenu() {
         opacity: 0, 
         duration: 0.3, 
         onComplete: () => {
+            mobileMenu.classList.remove('flex');
             mobileMenu.classList.add('hidden');
         }
     });
