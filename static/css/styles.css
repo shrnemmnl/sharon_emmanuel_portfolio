@@ -68,3 +68,9 @@ html {
     background: #111;
     color: #fff;
 }
+
+/* Diffused Edge Mask for Images */
+.diffuse-image {
+    -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 65%, transparent 100%);
+    mask-image: radial-gradient(ellipse at 50% 50%, black 65%, transparent 100%);
+}
